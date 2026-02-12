@@ -41,14 +41,14 @@ play_sound() {
     # Linux with paplay (PulseAudio)
     elif command -v paplay &>/dev/null; then
       paplay "$sound_file" &
-    # Fallback: terminal bell
+    # Fallback: terminal bell (send to stderr to avoid corrupting JSON stdout)
     else
-      printf '\a'
+      printf '\a' >&2
     fi
   else
-    # No custom sound file — use terminal bell
+    # No custom sound file — use terminal bell (send to stderr)
     if [[ "$NOTIF" == *"bell"* ]]; then
-      printf '\a'
+      printf '\a' >&2
     fi
   fi
 }
