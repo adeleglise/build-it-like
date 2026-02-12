@@ -149,18 +149,64 @@ build-it-like/
 │   │   └── config.yaml       # Configuration projet
 │   └── bmm/                  # Modules BMAD
 ├── .claude/
-│   └── commands/             # Commandes Claude Code intégrées
+│   ├── commands/             # Commandes slash Claude Code
+│   │   ├── build-it-like.md  # /build-it-like — lancer un projet
+│   │   ├── persona-create.md # /persona-create — créer une personnalité
+│   │   └── persona-list.md   # /persona-list — lister les personae
+│   ├── hooks/                # 🪝 Hooks natifs Claude Code
+│   │   ├── session-start.sh  # Charge la personae au démarrage
+│   │   ├── prompt-rewrite.sh # Injecte le contexte personae dans chaque prompt
+│   │   ├── on-stop.sh        # Son de complétion personnalisé
+│   │   └── notify.sh         # Notifications thématisées
+│   └── settings.json         # Configuration hooks Claude Code
 ├── personae/                 # 🎭 Définitions de personnalités
-│   ├── napoleon.yaml
+│   ├── napoleon.yaml         # Traits, style, rewrite_rules
+│   ├── napoleon.env.json     # Thème, sons, verbes, messages
 │   ├── steve-jobs.yaml
+│   ├── steve-jobs.env.json
 │   └── ...
-├── hooks/                    # 🪝 Hooks d'interception
-│   ├── rewrite.md
-│   ├── decide.md
-│   └── ...
+├── hooks/                    # 📜 Documentation des hooks conceptuels
+│   ├── rewrite.md            # Réécriture du prompt initial
+│   ├── decide.md             # Prise de décision in-character
+│   ├── review.md             # Code/design review
+│   ├── rally.md              # Déblocage et motivation
+│   └── retrospective.md     # Bilan de sprint
+├── sounds/                   # 🔊 Sons personnalisés par personae (.wav)
+├── scripts/
+│   └── activate-persona.sh   # Activer une personae
 ├── _bmad-output/             # Artefacts générés
 └── README.md
 ```
+
+---
+
+## 🎨 Customisation de l'environnement
+
+Chaque personae ne se contente pas de changer le ton — elle **reconfigure Claude Code** à son image via un fichier `.env.json` :
+
+| Paramètre | Napoléon ⚔️ | Steve Jobs 🍎 | Musashi 🗡️ |
+|-----------|-------------|--------------|------------|
+| **Thème** | dark | light | dark |
+| **Notifications** | bell (canon!) | silencieuses | terminal bell |
+| **Read** | "reconnaissance" | "étude du produit" | "観察" |
+| **Edit** | "manœuvre tactique" | "itération design" | "一刀" |
+| **Write** | "décret impérial" | "création" | "書" |
+| **Bash** | "ordre de bataille" | "prototype rapide" | "斬" |
+| **Son de fin** | artillery_fire 💥 | glass_tap 🔔 | taiko_drum 🥁 |
+| **On error** | "Reformez les rangs !" | "This is shit." | "Recommence." |
+| **Greeting** | "Soldats ! Quel territoire..." | "Let's make something great" | "…" |
+
+### Activer une personae
+
+```bash
+./scripts/activate-persona.sh napoleon
+```
+
+Les hooks Claude Code natifs (`.claude/hooks/`) prennent le relais automatiquement :
+- **session-start.sh** → affiche le greeting de la personae
+- **prompt-rewrite.sh** → injecte le contexte persona dans chaque prompt
+- **on-stop.sh** → joue le son de complétion personnalisé
+- **notify.sh** → personnalise les notifications
 
 ---
 
