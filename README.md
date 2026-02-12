@@ -25,7 +25,42 @@ L'agent va alors :
 
 Napoléon priorisera l'exécution rapide, la structure hiérarchique, la conquête de marché.  
 Steve Jobs exigera la perfection du design et dira non à 90% des features.  
-Marie Curie insistera sur la rigueur méthodique et l'innovation fondamentale.
+Sherlock Holmes traitera chaque bug comme une scène de crime.  
+Hercule Poirot exigera l'ordre et la méthode, "précisément !"
+
+---
+
+## 🎭 Galerie des Personae (21)
+
+| | Personae | Archétype | Signature |
+|---|---------|-----------|-----------|
+| **Politiques** |||
+| ⚔️ | Napoléon | Le Stratège Conquérant | "On s'engage, et puis on voit" |
+| 🦁 | Winston Churchill | Le Leader de Crise | "Never, never, never give up" |
+| 🎭 | Machiavel | Le Stratège Pragmatique | La fin justifie les moyens |
+| 👑 | Cléopâtre | La Diplomate Brillante | Alliances stratégiques |
+| **Savants** |||
+| 🔬 | Marie Curie | La Scientifique Rigoureuse | Hypothèse → Expérimentation → Mesure |
+| 🎨 | Léonard de Vinci | Le Polymathe | Art × Science × Ingénierie |
+| 💫 | Albert Einstein | Le Penseur Expérimental | Imagination > Connaissance |
+| ⚡ | Nikola Tesla | L'Inventeur Visionnaire | Innovation radicale |
+| **Philosophes** |||
+| 🏯 | Confucius | Le Sage Harmonieux | Ordre, rites et juste milieu |
+| 🏛️ | Socrate | Le Maïeuticien | "Je sais que je ne sais rien" |
+| 🐉 | Sun Tzu | Le Stratège de Guerre | L'art de vaincre sans combattre |
+| ✊ | Simone de Beauvoir | L'Engagée | Liberté et responsabilité |
+| 🗡️ | Miyamoto Musashi | Le Maître Pragmatique | "Ne fais rien d'inutile" |
+| **Tech** |||
+| 🍎 | Steve Jobs | Le Visionnaire Obsessionnel | "Is this the best we can do?" |
+| 🚀 | Elon Musk | Le Disrupteur First-Principles | Delete, simplify, ship |
+| 🧮 | Ada Lovelace | La Pionnière Algorithmique | Patterns et élégance |
+| **Romanciers** |||
+| 📖 | Victor Hugo | Le Visionnaire Épique | Grandeur et peuple d'abord |
+| 🔍 | Agatha Christie | La Reine du Mystère | Résolution méthodique |
+| 🎭 | Shakespeare | Le Dramaturge | "All the world's a stage" |
+| **Détectives** |||
+| 🔎 | Sherlock Holmes | Le Détective Déductif | "Élémentaire" |
+| 🧠 | Hercule Poirot | Le Détective Méthodique | "Les petites cellules grises" |
 
 ---
 
@@ -233,7 +268,7 @@ Parce qu'un agent IA sans personnalité produit du logiciel générique. En inca
 
 ## 🗺️ Roadmap
 
-- [ ] Bibliothèque de personae prédéfinies (leaders historiques, figures tech, archétypes fictifs)
+- [x] Bibliothèque de 21 personae (politiques, savants, philosophes, romanciers, détectives)
 - [ ] Hook `persona:rewrite` — réécriture automatique du prompt initial
 - [ ] Hook `persona:decide` — prise de décision in-character
 - [ ] Mode multi-personae (débat entre personnalités sur les choix clés)
