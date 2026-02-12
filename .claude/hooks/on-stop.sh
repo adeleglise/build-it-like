@@ -9,10 +9,17 @@ ACTIVE_FILE="$PROJECT_ROOT/.active-persona"
 
 [[ -f "$ACTIVE_FILE" ]] || exit 0
 
+# Load shared YAML parser
+source "$PROJECT_ROOT/.claude/hooks/parse-yaml.sh"
+
 PERSONA=$(cat "$ACTIVE_FILE")
 ENV_FILE="$PROJECT_ROOT/personae/${PERSONA}.env.json"
+PERSONA_FILE="$PROJECT_ROOT/personae/${PERSONA}.yaml"
 
-[[ -f "$ENV_FILE" ]] || exit 0
+# Validate persona pair exists
+if [[ ! -f "$PERSONA_FILE" ]] || [[ ! -f "$ENV_FILE" ]]; then
+  exit 0
+fi
 
 # Play sound based on persona
 SOUND=$(jq -r '.verbose.completion_sound // empty' "$ENV_FILE")
@@ -48,6 +55,20 @@ play_sound() {
 
 if [[ -n "$SOUND" ]]; then
   play_sound "$SOUND"
+fi
+
+# Read farewell message
+FAREWELL=$(jq -r '.verbose.farewell // empty' "$ENV_FILE")
+ICON=$(yaml_val "$PERSONA_FILE" "icon")
+
+if [[ -n "$FAREWELL" ]]; then
+  jq -n --arg msg "${ICON} ${FAREWELL}" '{
+    hookSpecificOutput: {
+      hookEventName: "Stop",
+      suppressOutput: false,
+      message: $msg
+    }
+  }'
 fi
 
 exit 0

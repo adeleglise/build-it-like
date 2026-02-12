@@ -24,7 +24,15 @@ if [[ -z "$PERSONA" ]]; then
 fi
 
 if [[ ! -f "$PERSONA_FILE" ]]; then
-  echo "❌ Persona '$PERSONA' not found at $PERSONA_FILE"
+  echo "Persona '$PERSONA' not found at $PERSONA_FILE"
+  exit 1
+fi
+
+# Validate that both .yaml and .env.json exist (Finding 14)
+ENV_CHECK="$PERSONA_DIR/${PERSONA}.env.json"
+if [[ ! -f "$ENV_CHECK" ]]; then
+  echo "Persona '$PERSONA' is missing its .env.json file at $ENV_CHECK"
+  echo "Each persona requires both a .yaml and .env.json file."
   exit 1
 fi
 

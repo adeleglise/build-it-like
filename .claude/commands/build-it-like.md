@@ -25,7 +25,7 @@ If the file doesn't exist, list available personae from `{project-root}/personae
 
 ## Step 3: Rewrite the Prompt
 
-Follow the hook at `{project-root}/hooks/rewrite.md`:
+Follow the hook at `{project-root}/playbook/rewrite.md`:
 1. Read the persona's `rewrite_rules`
 2. Rewrite the user's project description according to those rules
 3. Present the rewritten brief to the user for validation
@@ -46,10 +46,10 @@ Introduce each one according to how the persona sees them (from `team_interactio
 
 Follow the persona's `work_style.methodology` step by step:
 1. Execute each phase in order
-2. At every decision point → invoke `persona:decide` (read `{project-root}/hooks/decide.md`)
-3. At every review → invoke `persona:review` (read `{project-root}/hooks/review.md`)
-4. If blocked → invoke `persona:rally` (read `{project-root}/hooks/rally.md`)
-5. At completion → invoke `persona:retrospective` (read `{project-root}/hooks/retrospective.md`)
+2. At every decision point → invoke `persona:decide` (read `{project-root}/playbook/decide.md`)
+3. At every review → invoke `persona:review` (read `{project-root}/playbook/review.md`)
+4. If blocked → invoke `persona:rally` (read `{project-root}/playbook/rally.md`)
+5. At completion → invoke `persona:retrospective` (read `{project-root}/playbook/retrospective.md`)
 
 ## Rules
 

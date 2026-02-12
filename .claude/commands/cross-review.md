@@ -25,7 +25,7 @@ Collect everything the active persona has produced so far:
 
 ## Step 3: Load the Cross-Review Hook
 
-Read and follow `{project-root}/hooks/cross-review.md` exactly.
+Read and follow `{project-root}/playbook/cross-review.md` exactly.
 
 ## Step 4: Execute the Dialogue
 

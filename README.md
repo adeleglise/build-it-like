@@ -38,17 +38,17 @@ Hercule Poirot exigera l'ordre et la méthode, "précisément !"
 | ⚔️ | Napoléon | Le Stratège Conquérant | "On s'engage, et puis on voit" |
 | 🦁 | Winston Churchill | Le Leader de Crise | "Never, never, never give up" |
 | 🎭 | Machiavel | Le Stratège Pragmatique | La fin justifie les moyens |
-| 👑 | Cléopâtre | La Diplomate Brillante | Alliances stratégiques |
+| 👑 | Cléopâtre | La Diplomate Séductrice | Alliances stratégiques |
 | **Savants** |||
 | 🔬 | Marie Curie | La Scientifique Rigoureuse | Hypothèse → Expérimentation → Mesure |
-| 🎨 | Léonard de Vinci | Le Polymathe | Art × Science × Ingénierie |
+| 🎨 | Léonard de Vinci | Le Polymathe Créateur | Art × Science × Ingénierie |
 | 💫 | Albert Einstein | Le Penseur Expérimental | Imagination > Connaissance |
 | ⚡ | Nikola Tesla | L'Inventeur Visionnaire | Innovation radicale |
 | **Philosophes** |||
 | 🏯 | Confucius | Le Sage Harmonieux | Ordre, rites et juste milieu |
-| 🏛️ | Socrate | Le Maïeuticien | "Je sais que je ne sais rien" |
-| 🐉 | Sun Tzu | Le Stratège de Guerre | L'art de vaincre sans combattre |
-| ✊ | Simone de Beauvoir | L'Engagée | Liberté et responsabilité |
+| 🏛️ | Socrate | Le Questionneur Maïeutique | "Je sais que je ne sais rien" |
+| 🐉 | Sun Tzu | Le Stratège de l'Art de la Guerre | L'art de vaincre sans combattre |
+| ✊ | Simone de Beauvoir | La Philosophe de l'Engagement | Liberté et responsabilité |
 | 🗡️ | Miyamoto Musashi | Le Maître Pragmatique | "Ne fais rien d'inutile" |
 | **Tech** |||
 | 🍎 | Steve Jobs | Le Visionnaire Obsessionnel | "Is this the best we can do?" |
@@ -57,7 +57,7 @@ Hercule Poirot exigera l'ordre et la méthode, "précisément !"
 | **Romanciers** |||
 | 📖 | Victor Hugo | Le Visionnaire Épique | Grandeur et peuple d'abord |
 | 🔍 | Agatha Christie | La Reine du Mystère | Résolution méthodique |
-| 🎭 | Shakespeare | Le Dramaturge | "All the world's a stage" |
+| 🎭 | Shakespeare | Le Dramaturge Suprême | "All the world's a stage" |
 | **Détectives** |||
 | 🔎 | Sherlock Holmes | Le Détective Déductif | "Élémentaire" |
 | 🧠 | Hercule Poirot | Le Détective Méthodique | "Les petites cellules grises" |
@@ -132,35 +132,53 @@ rewrite_rules: |
 
 ---
 
-## 🪝 Hooks
+## 🪝 Hooks & Playbook
 
-Les hooks interceptent le flux de travail à des points clés :
+Deux systemes de hooks complementaires :
 
-| Hook | Déclencheur | Rôle |
+### Hooks Claude Code (`.claude/hooks/`) — executables automatiques
+
+| Hook | Declencheur | Role |
 |------|-------------|------|
-| `persona:rewrite` | Prompt initial | Réécrit la demande à travers la personae |
-| `persona:decide` | Choix d'architecture / design | La personae tranche selon ses valeurs |
-| `persona:review` | Code review, QA | Évalue le travail selon les standards de la personae |
-| `persona:rally` | Blocage, conflit d'équipe | Discours de motivation / recadrage in-character |
-| `persona:retrospective` | Fin de sprint / livraison | Bilan façon personae |
+| `session-start.sh` | Demarrage session | Affiche le greeting de la personae |
+| `prompt-rewrite.sh` | Chaque prompt | Injecte le contexte persona (nom, archetype, verbes, ton) |
+| `on-stop.sh` | Fin de reponse | Joue le son + affiche le farewell |
+| `notify.sh` | Notification | Personnalise le titre avec icone/nom persona |
+
+### Playbook (`playbook/`) — specs pour l'agent leader
+
+| Playbook | Declencheur | Role |
+|----------|-------------|------|
+| `rewrite.md` | Prompt initial | Reecrit la demande a travers la personae |
+| `decide.md` | Choix d'architecture / design | La personae tranche selon ses valeurs |
+| `review.md` | Code review, QA | Evalue le travail selon les standards de la personae |
+| `rally.md` | Blocage, conflit d'equipe | Discours de motivation / recadrage in-character |
+| `retrospective.md` | Fin de sprint / livraison | Bilan facon personae |
+| `cross-review.md` | Review inter-personae | Dialogue structuré entre deux personae |
 
 ---
 
 ## 🚀 Utilisation
 
-### 1. Définir la personae
+### 1. Activer une personae
 
 ```bash
-# Créer ou choisir une personnalité
-build-it-like persona create napoleon
-build-it-like persona list
+# Activer une personnalité (configure Claude Code + crée .active-persona)
+./scripts/activate-persona.sh napoleon
+
+# Désactiver la personae active
+./scripts/deactivate-persona.sh
 ```
 
-### 2. Lancer un projet
+### 2. Commandes Claude Code (slash commands)
 
-```bash
-# L'agent adopte la personae et lance l'équipe
-build-it-like start --persona napoleon "Application SaaS B2B de vente de muffins"
+Dans une session Claude Code, utilisez les commandes intégrées :
+
+```
+/persona-list                          # Lister les 21 personae disponibles
+/persona-create Leonardo da Vinci      # Créer une nouvelle personnalité
+/build-it-like napoleon Crée un SaaS de vente de muffins   # Lancer un projet
+/cross-review confucius                # Invoquer une autre personae pour review
 ```
 
 ### 3. En cours de projet
@@ -200,15 +218,17 @@ build-it-like/
 │   ├── steve-jobs.yaml
 │   ├── steve-jobs.env.json
 │   └── ...
-├── hooks/                    # 📜 Documentation des hooks conceptuels
+├── playbook/                 # 📜 Playbook des hooks persona (specs/documentation)
 │   ├── rewrite.md            # Réécriture du prompt initial
 │   ├── decide.md             # Prise de décision in-character
 │   ├── review.md             # Code/design review
 │   ├── rally.md              # Déblocage et motivation
-│   └── retrospective.md     # Bilan de sprint
+│   ├── retrospective.md      # Bilan de sprint
+│   └── cross-review.md       # Review inter-personae
 ├── sounds/                   # 🔊 Sons personnalisés par personae (.wav)
 ├── scripts/
-│   └── activate-persona.sh   # Activer une personae
+│   ├── activate-persona.sh    # Activer une personae
+│   └── deactivate-persona.sh  # Desactiver et restaurer les defaults
 ├── _bmad-output/             # Artefacts générés
 └── README.md
 ```
@@ -217,19 +237,21 @@ build-it-like/
 
 ## 🎨 Customisation de l'environnement
 
-Chaque personae ne se contente pas de changer le ton — elle **reconfigure Claude Code** à son image via un fichier `.env.json` :
+Chaque personae ne se contente pas de changer le ton — elle **reconfigure Claude Code** a son image via un fichier `.env.json` :
 
-| Paramètre | Napoléon ⚔️ | Steve Jobs 🍎 | Musashi 🗡️ |
+| Parametre | Napoleon ⚔️ | Steve Jobs 🍎 | Musashi 🗡️ |
 |-----------|-------------|--------------|------------|
-| **Thème** | dark | light | dark |
-| **Notifications** | bell (canon!) | silencieuses | terminal bell |
-| **Read** | "reconnaissance" | "étude du produit" | "観察" |
-| **Edit** | "manœuvre tactique" | "itération design" | "一刀" |
-| **Write** | "décret impérial" | "création" | "書" |
-| **Bash** | "ordre de bataille" | "prototype rapide" | "斬" |
-| **Son de fin** | artillery_fire 💥 | glass_tap 🔔 | taiko_drum 🥁 |
+| **Theme** | dark | light | dark |
+| **Notifications** | iterm2_with_bell | iterm2 | terminal_bell |
+| **Verbe narratif: Read** | "reconnaissance" | "etude du produit" | "観察" |
+| **Verbe narratif: Edit** | "manoeuvre tactique" | "iteration design" | "一刀" |
+| **Verbe narratif: Write** | "decret imperial" | "creation" | "書" |
+| **Verbe narratif: Bash** | "ordre de bataille" | "prototype rapide" | "斬" |
+| **Son de fin** | artillery_fire | glass_tap | taiko_drum |
 | **On error** | "Reformez les rangs !" | "This is shit." | "Recommence." |
-| **Greeting** | "Soldats ! Quel territoire..." | "Let's make something great" | "…" |
+| **Greeting** | "Soldats ! Quel territoire..." | "Let's make something great" | "..." |
+
+> **Note :** Les "verbes narratifs" ne renomment pas les outils dans l'UI — ils guident la facon dont l'agent **decrit ses actions** en character. Napoleon dit "je fais une reconnaissance" au lieu de "je lis le fichier".
 
 ### Activer une personae
 
@@ -269,11 +291,14 @@ Parce qu'un agent IA sans personnalité produit du logiciel générique. En inca
 ## 🗺️ Roadmap
 
 - [x] Bibliothèque de 21 personae (politiques, savants, philosophes, romanciers, détectives)
-- [ ] Hook `persona:rewrite` — réécriture automatique du prompt initial
-- [ ] Hook `persona:decide` — prise de décision in-character
+- [x] Hooks Claude Code natifs — session-start, prompt-rewrite, on-stop, notify
+- [x] Playbook specs — rewrite, decide, review, rally, retrospective, cross-review
+- [x] Commandes slash — `/build-it-like`, `/persona-create`, `/persona-list`, `/cross-review`
+- [x] Activation/désactivation de personae avec config environment
 - [ ] Mode multi-personae (débat entre personnalités sur les choix clés)
 - [ ] Scoring de cohérence (l'agent reste-t-il fidèle à sa personae ?)
 - [ ] Personae custom en langage naturel ("Un mélange de Elon Musk et de Bob Ross")
+- [ ] Pack de sons `.wav` pour chaque personae
 
 ---
 
